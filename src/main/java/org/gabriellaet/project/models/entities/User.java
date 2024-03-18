@@ -1,15 +1,22 @@
 package org.gabriellaet.project.models.entities;
 
+import jakarta.persistence.*;
+import org.springframework.stereotype.Repository;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String email;
