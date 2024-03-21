@@ -2,6 +2,7 @@ package org.gabriellaet.project.models.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serial;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {

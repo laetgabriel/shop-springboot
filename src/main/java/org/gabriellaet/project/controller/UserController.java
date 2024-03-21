@@ -16,23 +16,21 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-        List<User> users = userService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+    public ResponseEntity<List<User>> findAll() {
+        List<User> list = userService.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") UUID id){
-        Optional<User> user = userService.findById(id);
-        if(user.isPresent())
-            return ResponseEntity.status(HttpStatus.OK).body(user.get());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findById(@PathVariable Long id){
+        User user = userService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }

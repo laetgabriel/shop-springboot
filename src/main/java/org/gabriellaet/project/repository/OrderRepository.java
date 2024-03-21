@@ -1,10 +1,8 @@
 package org.gabriellaet.project.repository;
 
-import org.gabriellaet.project.models.entities.User;
+import org.gabriellaet.project.models.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }
