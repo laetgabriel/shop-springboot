@@ -1,6 +1,7 @@
 package org.gabriellaet.project.controller;
 
 import org.gabriellaet.project.models.entities.Product;
+import org.gabriellaet.project.models.entities.User;
 import org.gabriellaet.project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -25,8 +26,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(productService.findById(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findById(@PathVariable Long id){
+        Product product = productService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 }
