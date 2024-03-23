@@ -1,8 +1,8 @@
 package org.gabriellaet.project.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,18 +12,17 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
+    @Getter
     private Integer quantity;
+    @Getter
     private Double price;
 
     public OrderItem(Order order, Product product, Integer quantity, Double price){
@@ -33,6 +32,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -47,6 +47,14 @@ public class OrderItem implements Serializable {
 
     public void setProduct(Product product){
         id.setProduct(product);
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @Override
