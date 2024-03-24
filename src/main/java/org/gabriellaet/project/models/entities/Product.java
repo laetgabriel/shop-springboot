@@ -1,5 +1,6 @@
 package org.gabriellaet.project.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +16,6 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
-@Data
 @Table(name = "tb_product")
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,6 +45,20 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> setOrder = new HashSet<>();
+        for(OrderItem orderItem : items){
+            setOrder.add(orderItem.getOrder());
+        }
+        return setOrder;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +66,6 @@ public class Product implements Serializable {
         Product product = (Product) o;
         return Objects.equals(id, product.id);
     }
+
 
 }
